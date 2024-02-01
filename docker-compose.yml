@@ -1,0 +1,46 @@
+version: "3.8"
+
+volumes:
+  mysql_data:
+    name: FP_mysql_data
+
+networks:
+  main:
+    name: FP_main
+
+services:
+
+  mysql:
+    image: mysql
+    container_name: FP_mysql
+    restart: always
+    networks:
+      - main
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    expose:
+      - 3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    container_name: FP_adminer
+    restart: always
+    networks:
+      - main
+    ports:
+      - 8080:8080
+
+  php:
+    build:
+      context: ./
+    container_name: FP_php
+    depends_on:
+      - mysql
+    networks:
+      - main
+    ports:
+      - 80:80
+    volumes:
+      - ./:/usr/src/php
