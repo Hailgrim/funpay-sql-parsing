@@ -19,7 +19,7 @@ class Database implements DatabaseInterface
     {
         if ($arg === $this->skip_token || is_null($arg)) {
             return 'NULL';
-        } elseif (is_numeric($arg)) {
+        } elseif (is_int($arg)) {
             return strval($arg);
         } elseif (is_bool($arg)) {
             return $arg ? '1' : '0';
