@@ -15,7 +15,7 @@ class Database implements DatabaseInterface
         $this->mysqli = $mysqli;
     }
 
-    private function parseNumeric(mixed $arg): string | null
+    private function parseInt(mixed $arg): string | null
     {
         if ($arg === $this->skip_token || is_null($arg)) {
             return 'NULL';
@@ -136,7 +136,7 @@ class Database implements DatabaseInterface
                 switch ($query[$i + 1]) {
                     case 'd':
                         // case for '?d'
-                        $result .= $this->parseNumeric($args[$arg_i]) ?? throw new Exception('Wrong numeric type.');
+                        $result .= $this->parseInt($args[$arg_i]) ?? throw new Exception('Wrong numeric type.');
                         $i++;
                         break;
 
